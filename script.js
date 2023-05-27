@@ -6,15 +6,17 @@ const Node = (data, left, right) => {
     }
 } 
 
-const Tree = (array) => {
-    let root; 
+const Tree = (array) => { 
+    let uniqueSortedArray = mergeSort([...new Set(array)]);  
     return {
-        root
+        root: buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1)
     }
 }
 
-function buildTree(array) {
-    let uniqueSortedArray = mergeSort([...new Set(array)]);
+function buildTree(array, start, end) {
+    let mid = Math.floor((start + end) / 2); 
+    let arrayLeft = array.slice(0, mid)
+    let arrayRight = array.slice(mid, end); 
     
 }
 
