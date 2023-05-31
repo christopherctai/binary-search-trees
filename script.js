@@ -1,7 +1,7 @@
 const util = require("util");
 
 // Node factory
-const Node = (data, left, right) => {
+const Node = (data, left = null, right = null) => {
     return {
         data: data,
         left: left,
@@ -27,10 +27,18 @@ const Tree = (array) => {
     );
   };
 
-  const root = buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1);
-
-  const insertValue = (value) => {
-    console.log();
+  const insertValue = (value, root) => {
+    if (root === null) {
+      return Node(value); 
+    }  
+    if (value === root.data) {
+      return root; 
+    } else if (value > root.data) {
+      root.right = insertValue(value, root.right);
+    } else {
+      root.left = insertValue(value, root.left); 
+    }
+    return root; 
   };
 
   const deleteValue = (value) => {
@@ -39,15 +47,10 @@ const Tree = (array) => {
 
   return {
     uniqueSortedArray,
-    root,
+    root: buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1), 
+    insertValue
   };
 };
-
-// Experimentation
-let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-let tree = Tree(array);
-// console.log(util.inspect(tree.root, false, null, true));
-prettyPrint(tree.root);
 
 // Print a nice looking tree
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -97,3 +100,12 @@ function mergeSort(array) {
     return sortedArray;
   }
 }
+
+
+// Experimentation
+let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+let tree = Tree(array);
+
+tree.insertValue(70, tree.root); 
+//console.log(util.inspect(tree.root, false, null, true));
+prettyPrint(tree.root); 
