@@ -65,6 +65,7 @@ const Node = (data, left = null, right = null) => {
 const Tree = (array) => {
   let uniqueSortedArray = mergeSort([...new Set(array)]);
 
+  // build the tree given an array 
   const buildTree = (array, start, end) => {
     if (start > end) {
       return null;
@@ -79,6 +80,7 @@ const Tree = (array) => {
     );
   };
 
+  // insert a node into the tree 
   const insertValue = (value, root) => {
     if (root === null) {
       return Node(value); 
@@ -93,6 +95,7 @@ const Tree = (array) => {
     return root; 
   };
 
+  // delete a node from the tree 
   // three cases: 1) no children, 2) one child, 3) two children 
   const deleteValue = (value, root) => {
     // base case 
@@ -111,12 +114,16 @@ const Tree = (array) => {
       } else if (root.left === null) {
         return root.right; 
       }
+      // if it has two children: 
+      // 1) Change the node's value to the minimum value in the right subtree 
+      // 2) Proceed to delete the original node with that value. Reduces the problem to an easier case with one or none children 
       root.data = findMinValue(root.right).data; 
       root.right = deleteValue(root.data, root.right);
     }
     return root; 
   };
 
+  // find the minimum value of a node 
   const findMinValue = (root) => {
     if (root.left === null) {
       return root; 
@@ -124,11 +131,26 @@ const Tree = (array) => {
     return findMinValue(root.left); 
   }
 
+  // find a value and return that node 
+  const find = (value, root) => {
+    if (root.data === value) {
+      return root;
+    } 
+    if (value > root.data) {
+      return find(value, root.right); 
+    } else {
+      return find(value, root.left); 
+    }
+  }
+
+  
+
   return {
     uniqueSortedArray,
     root: buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1), 
     insertValue, 
-    deleteValue
+    deleteValue, 
+    find
   };
 };
 
@@ -139,8 +161,8 @@ let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let tree = Tree(array);
 
 prettyPrint(tree.root); 
-
+console.log(tree.find(4, tree.root)); 
 //console.log(util.inspect(tree.root, false, null, true));
-prettyPrint(tree.root); 
+
 
 
