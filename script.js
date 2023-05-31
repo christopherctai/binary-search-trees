@@ -41,14 +41,31 @@ const Tree = (array) => {
     return root; 
   };
 
-  const deleteValue = (value) => {
-    console.log("hi");
+  // three cases: 1) no children, 2) one child, 3) two children 
+  const deleteValue = (value, root) => {
+    // base case 
+    if (root === null) {
+      return root; 
+    }  
+    // recurse down the tree until we get to the node to be deleted 
+    if (value > root) {
+      root.right = deleteValue(value, root.right); 
+    } else if (value < root) {
+      root.left = deleteValue(value, root.left); 
+    } else {
+      if (root.right === null) {
+        return root.left; 
+      } else if (root.left === null) {
+        return root.right; 
+      }
+    }
   };
 
   return {
     uniqueSortedArray,
     root: buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1), 
-    insertValue
+    insertValue, 
+    deleteValue
   };
 };
 
@@ -106,6 +123,6 @@ function mergeSort(array) {
 let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let tree = Tree(array);
 
-tree.insertValue(70, tree.root); 
+tree.deleteValue(3, tree.root); 
 //console.log(util.inspect(tree.root, false, null, true));
 prettyPrint(tree.root); 
