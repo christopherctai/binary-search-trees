@@ -133,7 +133,7 @@ const Tree = (array) => {
 
   // find a value and return that node 
   const find = (value, root) => {
-    if (root.data === value) {
+    if (root === null || root.data === value) {
       return root;
     } 
     if (value > root.data) {
@@ -143,14 +143,33 @@ const Tree = (array) => {
     }
   }
 
-  
+  // level order traversal 
+  const levelOrder = (root) => {
+    let queue = []; 
+    let array = [];
+    if (root === null) {
+      return root;
+    }
+    queue.push(root); 
+    while (queue.length !== 0 && queue[0] !== null) {
+      let front = queue[0];
+      if (front.left !== null) queue.push(front.left);
+      if (front.right !== null) queue.push(front.right); 
+      array.push(front.data);
+      queue.shift();
+    }
+    return array; 
+
+  };
+
 
   return {
     uniqueSortedArray,
     root: buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1), 
     insertValue, 
     deleteValue, 
-    find
+    find, 
+    levelOrder
   };
 };
 
@@ -161,7 +180,7 @@ let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let tree = Tree(array);
 
 prettyPrint(tree.root); 
-console.log(tree.find(4, tree.root)); 
+console.log(tree.levelOrder(tree.root));
 //console.log(util.inspect(tree.root, false, null, true));
 
 
