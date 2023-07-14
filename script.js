@@ -246,6 +246,8 @@ const Tree = (array) => {
 
 
 // Experimentation
+
+
 let array = [1, 2, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let tree = Tree(array);
 
@@ -256,15 +258,6 @@ function printData(data) {
 // tree.insertValue(10, tree.root); 
 // prettyPrint(tree.root); 
 // tree.deleteValue(8, tree.root); 
-prettyPrint(tree.root); 
-
-console.log(tree.getHeight(tree.root)); 
-
-tree.insertValue(10, tree.root); 
-tree.insertValue(2, tree.root); 
-
-prettyPrint(tree.root); 
-console.log(tree.getHeight(tree.root)); 
 
 // console.log(util.inspect(tree.root, false, null, true));
 
