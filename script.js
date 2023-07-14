@@ -252,7 +252,12 @@ const Tree = (array) => {
   } 
 
   // rebalance function 
-  
+  const rebalance = (root) => {
+    fullTree = levelOrder(root);
+    console.log(fullTree);  
+    let uniqueSortedArray = mergeSort([...new Set(fullTree)]); 
+    return root = buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1);
+  }
 
   return {
     uniqueSortedArray,
@@ -267,7 +272,8 @@ const Tree = (array) => {
     postOrder, 
     getHeight, 
     getDepth,
-    isBalanced
+    isBalanced, 
+    rebalance
   };
 };
 
@@ -290,6 +296,7 @@ tree.insertValue(10, tree.root);
 tree.insertValue(11, tree.root); 
 prettyPrint(tree.root);  
 console.log(tree.isBalanced(tree.root)); 
+prettyPrint(tree.rebalance(tree.root)); 
 
 
 // console.log(util.inspect(tree.root, false, null, true));
