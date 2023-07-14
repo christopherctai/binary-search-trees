@@ -218,7 +218,15 @@ const Tree = (array) => {
       return array; 
     }
 
-
+    // height function 
+    const getHeight = (node, height = 0, array = []) => {
+      if (node === null) return; 
+      height++; 
+      array.push(height); 
+      getHeight(node.left, height, array); 
+      getHeight(node.right, height, array);
+      return Math.max.apply(null, array);
+    }
 
   return {
     uniqueSortedArray,
@@ -230,7 +238,8 @@ const Tree = (array) => {
     levelOrderFunction,
     inOrder, 
     preOrder, 
-    postOrder
+    postOrder, 
+    getHeight
   };
 };
 
@@ -249,9 +258,14 @@ function printData(data) {
 // tree.deleteValue(8, tree.root); 
 prettyPrint(tree.root); 
 
-console.log(tree.inOrder(tree.root));
-console.log(tree.preOrder(tree.root)); 
-console.log(tree.postOrder(tree.root)); 
+console.log(tree.getHeight(tree.root)); 
+
+tree.insertValue(10, tree.root); 
+tree.insertValue(2, tree.root); 
+
+prettyPrint(tree.root); 
+console.log(tree.getHeight(tree.root)); 
+
 // console.log(util.inspect(tree.root, false, null, true));
 
 
