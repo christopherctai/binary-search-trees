@@ -80,6 +80,9 @@ const Tree = (array) => {
     );
   };
 
+  // define the tree 
+  let root = buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1);
+
   // insert a node into the tree 
   const insertValue = (value, root) => {
     if (root === null) {
@@ -162,14 +165,33 @@ const Tree = (array) => {
 
   };
 
+  // reconstructing the level order traversal 
+  const levelOrderFunction = (functionParameter) => {
+    let queue = []; 
+    let array = []; 
+    if (root === null) {
+      return root; 
+    }
+    queue.push(root); 
+    while(queue.length !== 0 && queue[0] !== null) {
+      let front = queue[0]; 
+      if (front.left !== null) queue.push(front.left); 
+      if (front.right !== null) queue.push(front.right); 
+      array.push(front.data); 
+      functionParameter(front.data); 
+      queue.shift(); 
+    }
+    return array; 
+  }
+
 
   return {
     uniqueSortedArray,
-    root: buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1), 
     insertValue, 
     deleteValue, 
     find, 
-    levelOrder
+    levelOrder, 
+    levelOrderFunction
   };
 };
 
@@ -179,9 +201,15 @@ const Tree = (array) => {
 let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let tree = Tree(array);
 
-prettyPrint(tree.root); 
+// prettyPrint(tree.root); 
+// tree.insertValue(10, tree.root); 
+// prettyPrint(tree.root); 
+// tree.deleteValue(8, tree.root); 
+// prettyPrint(tree.root); 
+
 console.log(tree.levelOrder(tree.root));
-//console.log(util.inspect(tree.root, false, null, true));
+tree.levelOrderFunction(console.log()); 
+// console.log(util.inspect(tree.root, false, null, true));
 
 
 
