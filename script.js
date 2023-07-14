@@ -218,15 +218,41 @@ const Tree = (array) => {
       return array; 
     }
 
-    // height function 
-    const getHeight = (node, height = 0, array = []) => {
-      if (node === null) return; 
-      height++; 
-      array.push(height); 
-      getHeight(node.left, height, array); 
-      getHeight(node.right, height, array);
-      return Math.max.apply(null, array);
+  // height function 
+  const getHeight = (node, height = 0, array = []) => {
+    if (node === null) return; 
+    height++; 
+    array.push(height); 
+    getHeight(node.left, height, array); 
+    getHeight(node.right, height, array);
+    return Math.max.apply(null, array) - 1;
+  } 
+
+  // depth function 
+  const getDepth = (node, root, depth = 0) => { 
+    if (root === null || node === null) {
+      return; 
     }
+    if (root === node) {
+      return depth;
+    } 
+    if (node.data < root.data) {
+      return getDepth(node, root.left, ++depth) 
+    } else {
+      return getDepth(node, root.right, ++depth); 
+    }
+  }
+
+  // isBalanced function 
+  const isBalanced = (root = this.root, depth = 0, array = []) => {
+    if (root === null) {
+      array.push(depth); 
+      console.log(array); 
+      return array
+    }  
+    if (root.left) return isBalanced(root.left, ++depth, array); 
+    if (root.right) return isBalanced(root.right, ++depth, array); 
+  }
 
   return {
     uniqueSortedArray,
@@ -239,7 +265,9 @@ const Tree = (array) => {
     inOrder, 
     preOrder, 
     postOrder, 
-    getHeight
+    getHeight, 
+    getDepth,
+    isBalanced
   };
 };
 
@@ -256,8 +284,12 @@ function printData(data) {
 }
 // prettyPrint(tree.root); 
 // tree.insertValue(10, tree.root); 
-// prettyPrint(tree.root); 
 // tree.deleteValue(8, tree.root); 
+prettyPrint(tree.root);  
+prettyPrint(tree.root.right.right.left); 
+console.log(tree.root.right.right.left); 
+console.log(tree.getDepth(tree.root.left.left, tree.root)); 
+
 
 // console.log(util.inspect(tree.root, false, null, true));
 
