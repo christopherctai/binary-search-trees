@@ -165,7 +165,7 @@ const Tree = (array) => {
 
   };
 
-  // reconstructing the level order traversal 
+  // reconstructing the level order traversal so it takes a function as a parameter 
   const levelOrderFunction = (functionParameter) => {
     let queue = []; 
     let array = []; 
@@ -184,31 +184,74 @@ const Tree = (array) => {
     return array; 
   }
 
+  // inorder 
+  const inOrder = (root, array = []) => {
+    if (root === null) {
+      return; 
+    } 
+    if (root.left) inOrder(root.left, array);
+    array.push(root.data); 
+    if (root.right) inOrder(root.right, array);  
+    return array; 
+  }
+
+
+  // preorder
+  const preOrder = (root, array = []) => {
+    if (root === null) {
+      return; 
+    } 
+    array.push(root.data); 
+    if (root.left) preOrder(root.left, array);
+    if (root.right) preOrder(root.right, array);  
+    return array; 
+  }
+
+  // postorder
+  const postOrder = (root, array = []) => {
+      if (root === null) {
+        return; 
+      } 
+      if (root.left) postOrder(root.left, array);
+      if (root.right) postOrder(root.right, array);  
+      array.push(root.data); 
+      return array; 
+    }
+
+
 
   return {
     uniqueSortedArray,
+    root,
     insertValue, 
     deleteValue, 
     find, 
     levelOrder, 
-    levelOrderFunction
+    levelOrderFunction,
+    inOrder, 
+    preOrder, 
+    postOrder
   };
 };
 
 
 
 // Experimentation
-let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+let array = [1, 2, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 let tree = Tree(array);
 
+function printData(data) {
+  console.log(data); 
+}
 // prettyPrint(tree.root); 
 // tree.insertValue(10, tree.root); 
 // prettyPrint(tree.root); 
 // tree.deleteValue(8, tree.root); 
-// prettyPrint(tree.root); 
+prettyPrint(tree.root); 
 
-console.log(tree.levelOrder(tree.root));
-tree.levelOrderFunction(console.log()); 
+console.log(tree.inOrder(tree.root));
+console.log(tree.preOrder(tree.root)); 
+console.log(tree.postOrder(tree.root)); 
 // console.log(util.inspect(tree.root, false, null, true));
 
 
