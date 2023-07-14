@@ -253,10 +253,11 @@ const Tree = (array) => {
 
   // rebalance function 
   const rebalance = (root) => {
-    fullTree = levelOrder(root);
-    console.log(fullTree);  
+    let fullTree = levelOrder(root); 
     let uniqueSortedArray = mergeSort([...new Set(fullTree)]); 
-    return root = buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1);
+    root = buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1);
+    prettyPrint(root); 
+    return; 
   }
 
   return {
@@ -282,8 +283,8 @@ const Tree = (array) => {
 // Experimentation
 
 
-let array = [1, 2, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-let tree = Tree(array);
+// let array = [1, 2, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+// let tree = Tree(array);
 
 function printData(data) {
   console.log(data); 
@@ -292,14 +293,50 @@ function printData(data) {
 // tree.insertValue(10, tree.root); 
 // tree.deleteValue(8, tree.root); 
 
-tree.insertValue(10, tree.root); 
+/* tree.insertValue(10, tree.root); 
 tree.insertValue(11, tree.root); 
 prettyPrint(tree.root);  
 console.log(tree.isBalanced(tree.root)); 
 prettyPrint(tree.rebalance(tree.root)); 
+*/
+
+// console.log(util.inspect(tree.root, false, null, true)); 
 
 
-// console.log(util.inspect(tree.root, false, null, true));
+// Driver Script 
+
+const generateArray = (length) => {
+  let array = []
+  for (let i = 0; i < length; i++){
+    array.push(Math.floor(Math.random() * 100))
+  }
+  return array; 
+}  
+
+let array = generateArray(30); 
+let tree = Tree(array); 
+
+console.log(tree.isBalanced(tree.root));  
+
+console.log(tree.levelOrder(tree.root)); 
+console.log(tree.preOrder(tree.root)); 
+console.log(tree.postOrder(tree.root)); 
+console.log(tree.inOrder(tree.root));  
+
+tree.insertValue(150, tree.root); 
+tree.insertValue(250, tree.root); 
+tree.insertValue(300, tree.root); 
+
+console.log(tree.isBalanced(tree.root)); 
+
+tree.rebalance(tree.root); 
+
+console.log(tree.isBalanced(tree.root));
+
+console.log(tree.levelOrder(tree.root)); 
+console.log(tree.preOrder(tree.root)); 
+console.log(tree.postOrder(tree.root)); 
+console.log(tree.inOrder(tree.root));  
 
 
 
