@@ -244,15 +244,15 @@ const Tree = (array) => {
   }
 
   // isBalanced function 
-  const isBalanced = (root = this.root, depth = 0, array = []) => {
-    if (root === null) {
-      array.push(depth); 
-      console.log(array); 
-      return array
-    }  
-    if (root.left) return isBalanced(root.left, ++depth, array); 
-    if (root.right) return isBalanced(root.right, ++depth, array); 
-  }
+  const isBalanced = (root) => {
+    leftHeight = getHeight(root.left); 
+    rightHeight = getHeight(root.right); 
+    const diff = Math.abs(leftHeight - rightHeight); 
+    return (diff > 1) ? false : true; 
+  } 
+
+  // rebalance function 
+  
 
   return {
     uniqueSortedArray,
@@ -285,10 +285,11 @@ function printData(data) {
 // prettyPrint(tree.root); 
 // tree.insertValue(10, tree.root); 
 // tree.deleteValue(8, tree.root); 
+
+tree.insertValue(10, tree.root); 
+tree.insertValue(11, tree.root); 
 prettyPrint(tree.root);  
-prettyPrint(tree.root.right.right.left); 
-console.log(tree.root.right.right.left); 
-console.log(tree.getDepth(tree.root.left.left, tree.root)); 
+console.log(tree.isBalanced(tree.root)); 
 
 
 // console.log(util.inspect(tree.root, false, null, true));
