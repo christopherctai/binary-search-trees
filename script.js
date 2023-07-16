@@ -256,7 +256,6 @@ const Tree = (array) => {
     let fullTree = levelOrder(root); 
     let uniqueSortedArray = mergeSort([...new Set(fullTree)]); 
     root = buildTree(uniqueSortedArray, 0, uniqueSortedArray.length - 1);
-    prettyPrint(root); 
     return; 
   }
 
